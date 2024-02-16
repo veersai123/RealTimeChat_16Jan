@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js" integrity="sha512-skuhu6jj+sQnhLq1Txsack8VfnIrX8wL+MTFilYlFFT/NuLJm7eya7zOROs39Jy5cjASMEWqxLzijRVmKhsqWQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+.myul{
+    list-style: none;
+    background-color: red;
+}
+</style>
+<body>
+   <h1>Chat Application</h1>
+   <ul class="myul">
+    <li>hello ji !❤️</li>
+   </ul>
+   <form class="myform ">
+    <input type="text" >
+    <input type="submit">
+   </form>
+   <script>
+     const info=document.querySelector('ul.myul')
+      var socket = io();
+      socket.on('server',(payload)=>{
+        console.log(payload)
+        info.innerHTML+=`<li>${payload}<li/>`
+      })
+     
+      document.querySelector('form.myform').addEventListener('submit',(e)=>{
+        e.preventDefault()
+         
+        socket.emit('chat message', e.target[0].value);// speaking 
+        e.target[0].value=""
+      })
+   </script>
+</body>
+</html>
